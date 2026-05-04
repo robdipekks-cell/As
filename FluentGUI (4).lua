@@ -679,37 +679,27 @@ for _, def in ipairs(FARM_DEFS) do
     end
 end
 
-Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
+local SettingsTab = Window:AddTab({ Title = "Settings", Icon = "settings" })
 
--- =============================================
 SaveManager:SetLibrary(Fluent)
 InterfaceManager:SetLibrary(Fluent)
- 
--- Ignore keys that are used by ThemeManager.
--- (we dont want configs to save themes, do we?)
+
 SaveManager:IgnoreThemeSettings()
- 
--- You can add indexes of elements the save manager should ignore
 SaveManager:SetIgnoreIndexes({})
- 
--- use case for doing it this way:
--- a script hub could have themes in a global folder
--- and game configs in a separate folder per game
-InterfaceManager:SetFolder("FluentScriptHub")
-SaveManager:SetFolder("FluentScriptHub/specific-game")
- 
-InterfaceManager:BuildInterfaceSection(Tabs.Settings)
-SaveManager:BuildConfigSection(Tabs.Settings)
- 
- 
+
+InterfaceManager:SetFolder("OorbitsHub")
+SaveManager:SetFolder("OorbitsHub/BeAStreamer")
+
+-- FIXED: Changed 'Tabs.Settings' to 'SettingsTab' to match your variable
+InterfaceManager:BuildInterfaceSection(SettingsTab)
+SaveManager:BuildConfigSection(SettingsTab)
+
 Window:SelectTab(1)
- 
+
 Fluent:Notify({
     Title = "Fluent",
     Content = "The script has been loaded.",
-    Duration = 8
+    Duration = 5
 })
- 
--- You can use the SaveManager:LoadAutoloadConfig() to load a config
--- which has been marked to be one that auto loads!
+
 SaveManager:LoadAutoloadConfig()
